@@ -31,7 +31,7 @@ Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
 [f1]: /figures/gg-five-annotated.png
 [f2]: /figures/gg-nine.png
 [f3]: /figures/gg-tern-clean.png
-[text]: /geofacet-draft-0.pdf
+[text]: /geofacet-draft.pdf
 [ik]: https://twitter.com/ikashnitsky
 [jma]: https://twitter.com/jm_aburto
 
