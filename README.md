@@ -1,5 +1,13 @@
 # Premature male mortality (15-49) in Mexican states, 1990-2015
 
+> Kashnitsky, I., & Aburto, J. M. (forthcoming). Geofaceting: allign small-multiples for regions in a spatially meaningful way. Demographic Research. 
+
+
+
+## Full text of the paper draft is available [here][text].
+
+***
+
 [![fig1][f1]][f1]  
 
 ***
@@ -8,20 +16,66 @@
 
 ***
 
-# Authorship
-This visualization was prepared during the Team Dataviz Challenge at [Rostock Reatreat](https://twitter.com/RostockRetreat) by 
-[Michael Boissonneault](https://twitter.com/michaelboiss), 
-[Jorge Cimentada](https://twitter.com/cimentadaj), 
-[Juan Galeano](https://twitter.com/GEDEM_CED), 
-[Corina Huisman](https://twitter.com/CorinaHuisman), 
-[Ilya Kashnitsky](https://twitter.com/ikashnitsky), 
-and [Nikola Sander](https://twitter.com/nikolasander).
+[![fig3][f3]][f3]  
 
-The data provided for the challenge is a courtesy of 
-[Tim Riffe](https://twitter.com/timriffe1) and 
-[José Manuel Aburto](https://twitter.com/jm_aburto).  
+***
 
-[f1]: /gg-ten.png
-[f2]: /gg-stacked.png
+
+To replicate the map, follow the instructions in "R/master-script.R" and, of course, feel free to explore in depth the chunks of code in "R" directory. 
+
+If you have questions regarding the dataviz, feel free to contact me: ilya.kashnitsky@gmail.com. For quiestions on the Mexican data, contact Jose Manuel: jmaburto@health.sdu.dk.
+
+Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
+
+
+[f1]: /figures/gg-five-annotated.png
+[f2]: /figures/gg-nine.png
+[f3]: /figures/gg-tern-clean.png
+[text]: /geofacet-draft-0.pdf
+[ik]: https://twitter.com/ikashnitsky
+[jma]: https://twitter.com/jm_aburto
+
+***
+
+
+## REPLICATION. HOW TO
+1. Fork this repository or [unzip the archive][arch].
+2. Using RStudio open "2018-geofacet-mexico.Rproj" file in the main project directory.
+3. Run the "R/master_script.R" file. 
+Wait. That's it.
+The results are stored in the sub-directory "figures".
+
+## LOGIC OF THE PROCESS
+The whole process is split into three parts, which is reflected in the structure of R scripts. First, the steps required for reproducibility are taken. Second, all data manipulation steps are performed. Finally, the figures are built. 
+The names of the scripts are quite indicative, and each script is reasonably commented. 
+
+
+## SEE ALSO
+ - [The initial version of the dataviz presented at Rostock Retreat Visualization in June 2017][retreat]
+ - [Paper in _Health Affairs_ on homicides in Mexico][ha]
+ - [Forthcoming paper in _The Lancet_ with an example of ternary colorcoding][lancet]
+
+
+[arch]: https://ikashnitsky.github.io/doc/misc/demres-2018-geofacet.zip
+[ha]: https://doi.org/10.1377/hlthaff.2015.0068
+[retreat]: https://github.com/ikashnitsky/geofaceted-premature-male-mortality-in-mexico
+[lancet]: https://osf.io/zac5x/
+
+
+
+## ACKNOWLEDGEMENT
+
+The initial version of the data visualization presented in this paper was originally developed by Ilya Kashnitsky in team work with [Michael Boissonneault][mb], [Jorge Cimentada][jc], [Juan Galeano][jg], [Corina Huisman][ch], and [Nikola Sander][ns] during the dataviz challenge at [Rostock Retreat Visualization][rr] event in June 2017. IK thanks his team members for the unique experience of super productive brainstorming and enthusiastic teamwork. The creative dataviz challenge was developed by [Tim Riffe][tr] and [Sebastian Klüsener][sk], the organizers of [Rostock Retreat Visualization][rr].
+
+[mb]: https://twitter.com/michaelboiss
+[jc]: https://twitter.com/cimentadaj
+[jg]: https://twitter.com/GEDEM_CED
+[ch]: https://twitter.com/CorinaHuisman
+[ns]: https://twitter.com/nikolasander
+[tr]: https://twitter.com/timriffe1
+[sk]: https://twitter.com/demomapper
+[rr]: https://www.rostock-retreat.org/2017/
+
+
 
 

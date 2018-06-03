@@ -25,8 +25,7 @@ library(extrafont)
 library(hrbrthemes)
 # get Roboto Consensed font -- called later as font_rc
 import_roboto_condensed()
-# library(ggtern)         # plot ternary compositions
-# library(tricolore)      # the magic -- part 2
+
 
 
 
@@ -120,7 +119,7 @@ df_ten %>%
 
 gg_ten <- last_plot()
 
-ggsave("gg-ten.png", gg_ten, width = 16, height = 12)
+ggsave("figures/gg-ten.png", gg_ten, width = 16, height = 12)
 
 
 
@@ -128,7 +127,6 @@ ggsave("gg-ten.png", gg_ten, width = 16, height = 12)
 ################################################################################
 # geofaceted stacked bars
 
-# the data preparation for this plot was done by Jorge, I was too lazy to change everything to match my code. Thus, I simply load the initital datatset again
 
 df_five <-
         df %>%
@@ -312,14 +310,14 @@ df_tern %>%
 ggplot(df_tern)+
         coord_cartesian(expand = c(0,0))+
         geom_tile(aes(year, age, fill = color))+
-        facet_wrap(~code)+
-        # facet_geo(~ code, grid = "mx_state_grid1", label = "name") +
+        # facet_wrap(~code)+
+        geofacet::facet_geo(~ code, grid = "mx_state_grid1", label = "name") +
         scale_x_discrete(breaks = c(1990, 2000, 2010),
                          labels = c(1990, 2000, "'10"))+
         scale_fill_identity()+
         labs(x = NULL, y = NULL, 
              title = "Gap between observed and best-practice life expectancy for Mexican states",
-             subtitle = "Colorcoded ternary compositions of the three leading groups of causes of death by age (15-49) and time (1990-2015)",
+             subtitle = "Colorcoded ternary compositions of the three leading causes of death by age (15-49) and time (1990-2015)",
              caption = auth)+
         theme_minimal(base_size = 12, base_family = font_rc)+
         # theme_few(base_size = 12)+
