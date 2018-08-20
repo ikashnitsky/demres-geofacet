@@ -29,9 +29,9 @@ sub_gg_tern <- "Colorcoded ternary compositions of the three leading causes of d
 # colors ------------------------------------------------------------------
 
 # create colors for gg-nine
-gr <- brewer.pal(9, "Greens")[c(3,5,7,9)]
+bl <- blues9[c(3,5,7,9)]
 set <-  brewer.pal(9, "Set1")
-col9 <- c(set[7], gr[4], gr[3], gr[1], set[1], gr[2], set[9], set[2], set[4])
+col9 <- c(set[7], bl[4], bl[3], bl[1], "magenta", bl[2], set[9], set[6], set[5])
 
 # create colors for gg-five
 col5 <- col9[c(5,7,6,3,1)]
@@ -193,6 +193,9 @@ tern <- Tricolore(
         contrast = .5, lightness = 1, chroma = 1, hue = 10/12
 )
 
+# UPD 2018-08-20 Error message (left unsolved do far):
+# Error in (function (el, elname)  : 
+#                   "tern.panel.background" is not a valid theme element name.
 
 df_tern$color <- tern$hexsrgb
 
