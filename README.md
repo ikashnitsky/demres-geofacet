@@ -31,7 +31,7 @@ Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
 [f1]: /figures/gg-five-annotated.png
 [f2]: /figures/gg-nine.png
 [f3]: /figures/gg-tern-assamble.png
-[text]: /geofacet-draft-1.pdf
+[text]: https://doi.org/10.31219/osf.io/f49n6
 [ik]: https://twitter.com/ikashnitsky
 [jma]: https://twitter.com/jm_aburto
 
@@ -39,7 +39,7 @@ Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
 
 
 ## REPLICATION. HOW TO
-1. Fork this repository or [unzip the archive][arch].
+1. Fork this repository.
 2. Using RStudio open "2018-geofacet-mexico.Rproj" file in the main project directory.
 3. Run the "R/master_script.R" file. 
 Wait. That's it.
@@ -53,11 +53,13 @@ The names of the scripts are quite indicative, and each script is reasonably com
 ## SEE ALSO
  - [The initial version of the dataviz presented at Rostock Retreat Visualization in June 2017][retreat]
  - [Paper in _Health Affairs_ on homicides in Mexico][ha]
+ - [Paper in _American Journal of Public Health_][ajph]
  - [Forthcoming paper in _The Lancet_ with an example of ternary colorcoding][lancet]
 
 
 [arch]: https://ikashnitsky.github.io/doc/misc/demres-2018-geofacet.zip
 [ha]: https://doi.org/10.1377/hlthaff.2015.0068
+[ajph]: https://doi.org/10.2105/AJPH.2018.304878
 [retreat]: https://github.com/ikashnitsky/geofaceted-premature-male-mortality-in-mexico
 [lancet]: https://osf.io/zac5x/
 
