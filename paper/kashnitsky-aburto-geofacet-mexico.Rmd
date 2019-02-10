@@ -1,0 +1,199 @@
+---
+title: Geofaceting -- align small-multiples for regions in a spatially meaningful way
+
+# Use letters for affiliations
+author:
+  - name: Ilya Kashnitsky
+    affiliation: a,b
+  - name: José Manuel Aburto
+    affiliation: a
+address:
+  - code: a
+    address: Interdisciplinary Centre on Population Dynamics, University of Southern Denmark, Odense, Denmark
+  - code: b
+    address: National Research University Higher School of Economics, Moscow, Russia
+    
+# Optional: line of arbitrary text with additional information.
+# Could be used, for example, to mention the bibliographic info in a post-print.
+# If not specified, defaults to "This version was compiled on \today"
+#date_subtitle: Published in *Journal of Statistical Software*, 2018
+
+# For footer text  TODO(fold into template, allow free form two-authors)
+lead_author_surname: \@[ikashnitsky](https://twitter.com/ikashnitsky) and \@[jm_aburto](https://twitter.com/jm_aburto)
+
+# Place eg a DOI URL or CRAN Package URL here
+doi_footer: "https://doi.org/10.31219/osf.io/f49n6"
+
+date_subtitle: |
+  Publication: *Demographic Research*, forthcoming.
+  Replication materials: https://github.com/ikashnitsky/demres-2018-geofacet
+
+# Abstract
+abstract: |
+  In this paper we present a handy visualization technique of geofaceting, which was recently streamlined in geofacet R package. The idea is to align small-multiples for territorial units, often regions, according to approximate geographical location. Compared to other ways of small-multiples' arrangement, geofaceting improves the speed of regions' identification and exposes the broad spatial pattern. We illustrate the technique using data on young adult mortality in the 32 Mexican states from 1990 to 2015.
+
+# Optional: Acknowledgements
+acknowledgements: |
+  The initial version of the data visualization presented in this paper was originally developed by Ilya Kashnitsky in team work with Michael Boissonneault, Jorge Cimentada, Juan Galeano, Corina Huisman, and Nikola Sander during the dataviz challenge at Rostock Retreat Visualization event in June 2017. IK thanks his team members for the unique experience of super productive brainstorming and enthusiastic teamwork. The creative dataviz challenge was developed by Tim Riffe and Sebastian Klüsener, the organizers of Rostock Retreat Visualization.
+
+# Optional: One or more keywords
+keywords:
+  - small-multiples
+  - geofacet
+  - ternary colorcoding
+  - external mortality
+  - homicide
+
+# Paper size for the document, values of letterpaper and a4paper
+papersize: a4paper
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 10pt
+
+# headers color
+headercolor: 35978f
+
+# link color
+linkcolor: 35978f
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineno mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Enable section numbering, default is unnumbered
+#numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+#secnumdepth: 5
+
+# Optional: Enable section numbering, default is unnumbered
+numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+#secnumdepth: 5
+
+# Optional: Skip inserting final break between acknowledgements, default is false
+skip_final_break: false
+
+# choose citation package
+citation_package: natbib
+
+# Optional: Bibliography 
+bibliography: geofaceted
+
+# citation style
+# biblio-style: apalike2
+
+# Optional: Enable a 'Draft' watermark on the document
+watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Geofaceting -- align small-multiples for regions in a spatially meaningful way"
+
+# Produce a pinp document
+output: pinp::pinp
+
+
+# Required: Vignette metadata for inclusion in a package.
+vignette: >
+  %\VignetteIndexEntry{Geofaceting -- align small-multiples for regions in a spatially meaningful way}
+  %\VignetteKeywords{geofacet, homicide}
+  %\VignettePackage{Geofaceting}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+```{r setup, echo=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+knitr::opts_chunk$set(out.width = "100%",
+                      warning = FALSE, 
+                      echo=FALSE)
+```
+
+\setcounter{page}{1}
+
+
+# Introduction
+
+In data visualization, it is often challenging to represent multiple relevant dimensions while preserving readability of a plot. This is especially true when the task is to expose spatial variation of some complex phenomenon. In such a case, geographical maps are the natural choice of a visualization framework -- they are meant to show spatial patterns. Yet, the usual difficulty is that one can only represent one variable meaningfully with a choropleth utilizing colors, so what if the dataset at hand is much more complex and demands a balanced exposure of several dimensions?
+
+Usually, time is a difficult to represent dimension, yet it is very important for the story telling. Visualizing time series with choropleths is challenging. One has to produce either small multiples for the years or animated pictures with maps for various years flashing sequentially. Both variants make it difficult to compare regions across time, which is the main goal of such visualization. Furthermore, including additional variables, e.g. age, complicates its representation, and the basic choropleth visualization framework fails. An alternative to overcome these limitations is _geofaceting_.  
+
+The idea of geofaceting is brilliantly simple: a "normal" plot is produced for each of the regions, and then all the small panels are arranged according to their approximate geographic location thereby making it easier to identify regions. The spatial logic of small-multiples alignment helps to identify the units of analysis, usually regions of a country, faster. Moreover, it reveals the macro-level spatial pattern while preserving the flexibility of visualization technique choice for the small-multiples themselves. As a result, creating geofaceted visualizations gives all the advantages of standard plots in which one can easily display at least three dimensions of a dataset. 
+
+Geofaceting has been re-invented multiple times. A closely related idea to overlay small plots over geographical maps can be seen in the works of 19-th century geographers [@palsky1996]. Geofaceting goes one step closer dropping the actual geographical map and just arranging the small-multiples in line with the spatial pattern of the corresponding areas. This approach was recently formalized by Ryan Hafen, received its name, and was consistently implemented in an R package `geofacet` [@hafen2017]. To put it in author's words:
+
+> What's new about this R package is that it formalizes the "geofaceting" approach, gives it a name, and makes it available in a user-friendly way. Also, it provides the basis for creating a library of community-contributed grids, which can be used elsewhere outside the package. [@hafen2018rh]
+
+
+ 
+
+# Data & Methods
+
+The application of our visualization proposal relies on the results from @aburto2018f. These are based on cause-of-death information available from the Mexican Statistical Office from 1990 to 2015, and population estimates from the Mexican Population Council [@INEGI]. Data were desegregated by single age, sex, and state. Population estimates were adjusted for age misstatement, undercounting, and interstate and international migration.
+
+Cause-specific death rates were smoothed over age and time for each state and sex separately using the 2-d p-spline to avoid random variations [@camarda2012jss]. Smoothed death rates were then constrained to sum to the unsmoothed all-cause death rates. Period life tables were constructed for males from 1990 to 2015 following standard demographic methods [@preston2001]. The average years lived between ages 15 and 49, temporary life expectancy [@arriaga1984d], were calculated with cause-specific contributions to the difference between state-specific temporary life expectancy and a low mortality benchmark using standard decomposition techniques [@horiuchi2008d].
+
+The low-mortality benchmark was calculated in the basis of the lowest observed mortality rates by age, cause of death, from among all states for a given sex and year. The resulting minimum mortality rate schedule has a unique age profile, and it determines a benchmark temporary life expectancy. The minimum mortality schedule can be treated as the best presently achievable mortality assuming perfect diffusion of the best available practices and technologies in Mexico [@vallin2008p].
+
+There exists substantial regional variation in young male mortality across Mexican states. Therefore, to visualize properly mortality patterns, it is necessary to take into account the spatial dimension of the dataset. For that, we use _geofaceting_, a visualization technique recently streamlined in R with the package `geofacet` [@hafen2017]. As there was no geofacet layout for Mexico, we created one from the scratch. The produced grid for Mexican states was successfully submitted to `geofacet` package [@kashnitsky2017ga]. Though, at the revision stage of the paper, we switched to an improved layout of Mexican states [@zepeda2018g].
+
+To expose the various dimensions of the dataset, we decided to produce three plots. The first two (Figures \ref{fig:five} and \ref{fig:nine}) complement each other. Figure \ref{fig:five} uses _stacked bar plot_ technique to reveal the variation of young adult mortality in Mexican states over time. In Figure \ref{fig:nine} we have created a separate _heatmap_ plotted over a standard _Lexis surface_ [@scholey2017dr; @rau2017] for each of the Mexican states; color shows the dominant cause of death. 
+
+Focusing on one leading cause of death may mask it's relative importance compared with the second, third, and so on. Thus, in Figure \ref{fig:tern} we apply the framework of _ternary colorcoding_, which was recently formalized and streamlined in the R package `tricolore` [@scholey2018]. Ternary colorcoding maximizes the amount of information conveyed by colors through representing each element in a three-dimensional array of compositional data with a single color. Each part of the ternary composition is assigned a hue (color characteristic), and the amount of hue for each data element is proportional to its weight in the ternary composition. For more technical details on the method check @scholeyforthcomingdr; for an indicative use case of ternary colorcoding see @kashnitsky2018tl. 
+
+The figures presented in this paper are easily reproducible using the replication material that we provide openly [@kashnitsky2018a]. R programming language [@rcoreteam2018] was used for the analyses and data visualization; in addition to core packages we used: `tidyverse` [@wickham2017b], `tricolore` [@scholey2018], `ggtern` [@hamilton2017], `hrbrthemes` [@rudis2018], `extrafont` [@chang2014], `RColorBrewer` [@neuwirth2014], and `geofacet` [@hafen2017]  
+
+
+# Application
+
+To show the usefulness of our proposal, we analyze the contribution of homicide, road traffic accidents, and suicide, medically amenable mortality, and causes amenable to health behavior (e.g. cirrhosis, HIV, lung cancer, diabetes) to the gap in temporary life expectancy between ages 15 and 49 of each of 32 Mexican states with a low mortality benchmark. These causes have emerged as leading among young people, and the first two recently had a sizable impact on life expectancy in Mexico [@aburto2016ha; @aburto2019ajph].
+
+Three complementary geofaceted plots were created. Figure \ref{fig:five} shows the absolute impact of five causes of death on the difference between the observed life expectancy with the best-practice life expectancy (low benchmark) for young males. For example, it shows how the contribution of homicides (red color) increased substantially after 2005, particularly in the North, reaching a peak in 2011 for Chihuahua, Sinaloa. Durango, among others. It is also clear from this graph that the most affected state in the South is Guerrero since the early 1990s.
+
+
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=1\textwidth]{fig/gg-five.png} 
+  \end{center}
+  \caption{Gap between observed and best-practice life expectancy for Mexican states: Years of life lost by cause of death across time (1990-2015).}\label{fig:five}
+\end{figure*}
+
+
+Figure \ref{fig:nine} shows state-specific Lexis diagrams with the main cause of death at each age in a given year. It gives a full representation of the main cause of death by age and period compromising on the actual values of the gap, i.e. Figure \ref{fig:five}. For example, from this graph it is clear that homicides are contributing the most across ages between 15 and 49 in most states in the North. However, even though in Oaxaca (in the South) the contribution of homicide was decreasing (Figure  \ref{fig:five}), between ages 20 and 30 homicide remained the main contributor to the gap.
+
+
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=1\textwidth]{fig/gg-nine.png} 
+  \end{center}
+  \caption{Gap between observed and best-practice life expectancy for Mexican states: Cause of death contributing the most by age (15-49) and time (1990-2015).}\label{fig:nine}
+\end{figure*}
+
+
+
+To enrich the plot with geofaceted Lexis surfaces (Figure \ref{fig:nine}), we use ternary colorcoding of the three main groups of causes of death: homicides, road traffic and suicides, and all other causes combined (Figure \ref{fig:tern}). This plot improves on the previous by providing the relative importance of the two main causes of death compared with all others pulled together. For example, if we compare Federal District (where Mexico City Mexico is located) with the neighboring Guerrero, their mortality pattern at ages 20-30 seem very similar if we look at Figure \ref{fig:nine} and focus only at the leading cause of death, homicide. Yet, when we consider the relative importance of homicide in the mortality regime of the two states (Figure \ref{fig:tern}), it becomes clear that homicide is by far a much bigger problem in the state of Guerrero. 
+
+
+
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=1\textwidth]{fig/gg-tern.png} 
+  \end{center}
+  \caption{Gap between observed and best-practice life expectancy for Mexican states: Colorcoded ternary compositions of the three leading groups of causes of death by age (15-49) and time (1990-2015).}\label{fig:tern}
+\end{figure*}
+
+
+
+# Discussion
+
+Geofaceting regions to analyze different dimensions of a phenomenon can improve on their graphical representation. Here, we propose using a multi-panel arrangement according to regional location to depict different dimensions of a dataset. We demonstrate its usefulness showing the specific case of Mexico and mortality patterns over a fairly large period, 1990-2015. The main advantage of our proposal is that the reader can easily interpret complex phenomena, while being able to identify regional variations. This is particularly important in the case of young males in Mexico that have experienced an unprecedented period of rising homicidal mortality. Moreover, the changing dynamics of violence in the country is a dimension hard to represent graphically, nevertheless with the geofaceting framework the reader can easily get a sense of this. For example, while most of the historically violent states are in the northern part of the country, in figures 1-3, an upsurge of violence in the South is clear, albeit with different intensities, i.e. absolute gap between states and best-practice life expectancy. Being able to identify variations regionally, but also in terms of intensity, is a great advantage of proposed visualization technique.
+
+There are some limitations of the approach. For example, if a territory is divided in a large, or very small, number of regions the geofaceting might not be the ideal approach to show complex phenomena. Moreover, if a territory is oddly shaped, or unevenly distributed, getting the proper regional representation might be impossible. Nevertheless, we believe that in the case shown here, geofaceting was a useful tool, which combined with ternary colorcoding provided a macro-representation of a phenomenon, i.e. cause-specific contributions to the gap between states and best-practice life expectancy, and still being able to account for regional variations.
+
+
+# References

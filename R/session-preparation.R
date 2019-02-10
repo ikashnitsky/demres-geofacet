@@ -21,6 +21,7 @@ if (!require("pacman", character.only = TRUE)){
 # these are the required packages
 pkgs <- c(
         "tidyverse", 
+        "janitor",
         "ggtern",
         "geofacet",
         "lubridate",

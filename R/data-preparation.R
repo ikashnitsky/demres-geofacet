@@ -31,7 +31,7 @@ sub_gg_tern <- "Colorcoded ternary compositions of the three leading causes of d
 # create colors for gg-nine
 bl <- blues9[c(3,5,7,9)]
 set <-  brewer.pal(9, "Set1")
-col9 <- c(set[7], bl[4], bl[3], bl[1], "magenta", bl[2], set[9], set[6], set[5])
+col9 <- c(set[7], bl[4], bl[3], bl[1], bl[2], set[9], set[6], set[5], "magenta")
 
 # create colors for gg-five
 col5 <- col9[c(5,7,6,3,1)]
@@ -45,34 +45,12 @@ col5[3] <- mixblue(3)[2]
 
 
 # to read in the R data.frame
-df <- local(get(load("data/MexicoMalesMiddleAge.Rdata")))
-names(df)  %<>%  tolower()
-
-
-# fix names
-df %<>% mutate(name = statename %>% 
-                       str_replace("á", "a") %>% 
-                       str_replace("í", "i") %>%
-                       str_replace("é", "e") %>%
-                       str_replace("ó", "o")) 
-
-
-
-# load proper codes
-load("data/codes.RData")
-
-
-# fix names
-codes %<>% mutate(name = name %>% 
-                          str_replace("á", "a") %>% 
-                          str_replace("í", "i") %>%
-                          str_replace("é", "e") %>%
-                          str_replace("ó", "o")) 
-
-
-# attach codes
-df %<>% select(-state, -statename, -sex, -cause) %>% 
-        left_join(codes, "name")
+df <- local(get(load("data/MexicoMalesMiddleAge.Rdata"))) %>% 
+        clean_names() %>% 
+        transmute(
+                code = state %>% as.numeric(),
+                year, age, cause_name, gap
+        )
 
 
 
@@ -81,7 +59,7 @@ df %<>% select(-state, -statename, -sex, -cause) %>%
 
 df_five <-
         df %>%
-        mutate(cause_recode = causename %>% 
+        mutate(cause_recode = cause_name %>% 
                        as_factor() %>% 
                        fct_collapse("Homicide" = "Homicide",
                                     "Other" = "Other",
@@ -107,7 +85,7 @@ df_five <-
 
 
 # save evetyrhing for gg-five
-save(df_five, col5, title, sub_gg_five, file = "data/for-gg-five.RData")
+save(df_five, col5, title, sub_gg_five, auth, file = "data/for-gg-five.RData")
 
 
 # a dataset with 9 causes ------------------------------------------------
@@ -117,14 +95,19 @@ df_nine <- df %>%
         group_by(code, year, age) %>% 
         filter(gap == gap %>% max()) %>% 
         ungroup() %>% 
-        mutate(causename = causename %>% 
-                       str_replace("Amenable to medical service", 
-                                   "Amenable to\nmedical service")) 
+        mutate(
+                cause_name = cause_name %>% 
+                        str_replace("Amenable to medical service", 
+                                    "Amenable to\nmedical service") %>% 
+                        factor() %>% 
+                        # move homicides to the end of factor
+                        fct_relevel("Homicide", after = Inf)
+        ) 
 
 
 
 # save evetyrhing for gg-ten
-save(df_nine, col9, title, sub_gg_nine, file = "data/for-gg-nine.RData")
+save(df_nine, col9, title, sub_gg_nine, auth, file = "data/for-gg-nine.RData")
 
 
 
@@ -132,17 +115,22 @@ save(df_nine, col9, title, sub_gg_nine, file = "data/for-gg-nine.RData")
 
 # ternary composition dataset ---------------------------------------------
 
-library(tricolore)
+rstudioapi::restartSession()
+p_unload(p_loaded(), character.only = T)
+library(tidyverse)
+library(gridExtra)
 library(ggtern)
+library(tricolore)
+library(hrbrthemes)
+import_roboto_condensed()
 
 df_three <-
         df %>%
-        mutate(cause_recode = causename %>% 
+        mutate(cause_recode = cause_name %>% 
                        as_factor() %>% 
                        fct_collapse(
                                "hom" = "Homicide",
-                               "sui" = c("Road traffic",
-                                                            "Suicide")
+                               "sui" = c("Road traffic", "Suicide")
                        ) %>% 
                        fct_other(keep = c("hom", "sui"), other_level = "oth")
         ) %>%
@@ -193,17 +181,18 @@ tern <- Tricolore(
         contrast = .5, lightness = 1, chroma = 1, hue = 10/12
 )
 
-# UPD 2018-08-20 Error message (left unsolved do far):
+# UPD 2018-08-20 Error message (left unsolved so far):
 # Error in (function (el, elname)  : 
 #                   "tern.panel.background" is not a valid theme element name.
+# 2019-02-09 -- fixed
 
-df_tern$color <- tern$hexsrgb
+df_tern$color <- tern$rgb
 
 
 
 # produce ternary legend --------------------------------------------------
 
-tern_legend <- tern$legend+
+tern_legend <- tern$key+
         geom_point(data = df_tern_sum, aes(hom, sui, z = oth), 
                    shape = 46, color = "grey20", size = 3)+
         geom_point(data = tibble(hom = center[1], sui = center[2], oth = center[3]), 
@@ -228,4 +217,4 @@ tern_legend <- tern$legend+
 
 
 # save evetyrhing for gg-three
-save(df_tern, tern_legend, title, sub_gg_tern, file = "data/for-gg-tern.RData")
+save(df_tern, tern_legend, title, sub_gg_tern, auth, file = "data/for-gg-tern.RData")
