@@ -27,13 +27,25 @@ If you have questions regarding the dataviz, feel free to contact me: ilya.kashn
 
 Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
 
+***
 
-[f1]: /figures/gg-five-annotated.png
-[f2]: /figures/gg-nine.png
-[f3]: /figures/gg-tern-assamble.png
+# Poster presented at PAA 2019
+
+[![fig4][f4s]][f4]  
+
+*Click for higher resolution image or get [PDF here][poster]*
+
+
+
+[f1]: https://ikashnitsky.github.io/demres-geofacet/figures/gg-five-annotated.png
+[f2]: https://ikashnitsky.github.io/demres-geofacet/figures/gg-nine.png
+[f3]: https://ikashnitsky.github.io/demres-geofacet/figures/gg-tern-assamble.png
+[f4]: https://ikashnitsky.github.io/demres-geofacet/poster-paa-2019/poster-paa-2019/geofacet-poster.png
+[f4s]: https://ikashnitsky.github.io/demres-geofacet/poster-paa-2019/poster-paa-2019/geofacet-poster-small.png
 [text]: https://doi.org/10.31219/osf.io/f49n6
 [ik]: https://twitter.com/ikashnitsky
 [jma]: https://twitter.com/jm_aburto
+[poster]: https://ikashnitsky.github.io/demres-geofacet/poster-paa-2019/geofacet-poster.pdf
 
 ***
 
