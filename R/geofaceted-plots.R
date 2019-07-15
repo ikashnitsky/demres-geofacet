@@ -178,7 +178,7 @@ gg_tern <- df_tern %>%
 # 2019-02-10 decided to assamble manually for publication quiality
 ggsave("figures/gg-tern.png", gg_tern, width = 16.5, height = 11.5)
 
-ggsave("figures/gg-tern-legend.png", tern_legend, width = 6, height = 5)
+ggsave("figures/gg-tern-legend.png", tern_legend, width = 4.5, height = 3.8)
 
 
 # for fig 4 export 2 states
@@ -217,5 +217,5 @@ ggsave(plot = gg_tern_two, "figures/ink-fig-4/gg-tern-two.pdf",
 ggsave(plot = gg_five, "figures/gg-five.pdf",  width = 16.5, height = 11.5, device = cairo_pdf)
 ggsave(plot = gg_nine, "figures/gg-nine.pdf",  width = 16.5, height = 11.5, device = cairo_pdf)
 ggsave(plot = gg_tern, "figures/gg-tern.pdf",  width = 16.5, height = 11.5, device = cairo_pdf)
-ggsave(plot = tern_legend, "figures/gg-tern-legend.pdf",  width = 16.5, height = 11.5, device = cairo_pdf)
+ggsave(plot = tern_legend, "figures/gg-tern-legend.pdf",  width = 4.5, height = 3.8, device = cairo_pdf)
 
