@@ -1,6 +1,6 @@
 # Premature male mortality (15-49) in Mexican states, 1990-2015
 
-> Kashnitsky, I., & Aburto, J. M. (forthcoming). Geofaceting: allign small-multiples for regions in a spatially meaningful way. Demographic Research. 
+> Kashnitsky, I., & Aburto, J. M. (2019). Geofaceting: allign small-multiples for regions in a spatially meaningful way. Demographic Research. 
 
 
 
@@ -20,8 +20,11 @@
 
 ***
 
+[![fig4][f4]][f4] 
+***
 
-To replicate the map, follow the instructions in "R/master-script.R" and, of course, feel free to explore in depth the chunks of code in "R" directory. 
+
+To replicate the figures, follow the instructions in "R/master-script.R" and, of course, feel free to explore in depth the chunks of code in "R" directory. 
 
 If you have questions regarding the dataviz, feel free to contact me: ilya.kashnitsky@gmail.com. For quiestions on the Mexican data, contact Jose Manuel: jmaburto@health.sdu.dk.
 
@@ -31,7 +34,7 @@ Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
 
 # Poster presented at PAA 2019
 
-[![fig4][f4s]][f4]  
+[![fig4][poster-s]][poster]  
 
 *Click for higher resolution image or get [PDF here][poster]*
 
@@ -40,8 +43,9 @@ Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
 [f1]: https://ikashnitsky.github.io/demres-geofacet/figures/gg-five-annotated.png
 [f2]: https://ikashnitsky.github.io/demres-geofacet/figures/gg-nine.png
 [f3]: https://ikashnitsky.github.io/demres-geofacet/figures/gg-tern-assamble.png
-[f4]: https://ikashnitsky.github.io/demres-geofacet/poster-paa-2019/geofacet-poster.png
-[f4s]: https://ikashnitsky.github.io/demres-geofacet/poster-paa-2019/geofacet-poster-small.png
+[f4]: https://ikashnitsky.github.io/demres-geofacet/figures/ink-fig-4/gg-four.png
+[poster]: https://ikashnitsky.github.io/demres-geofacet/poster-paa-2019/geofacet-poster.png
+[poster-s]: https://ikashnitsky.github.io/demres-geofacet/poster-paa-2019/geofacet-poster-small.png
 [text]: https://doi.org/10.31219/osf.io/f49n6
 [ik]: https://twitter.com/ikashnitsky
 [jma]: https://twitter.com/jm_aburto
@@ -52,7 +56,7 @@ Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
 
 ## REPLICATION. HOW TO
 1. Fork this repository.
-2. Using RStudio open "2018-geofacet-mexico.Rproj" file in the main project directory.
+2. Using RStudio open "demres-geofacet.Rproj" file in the main project directory.
 3. Run the "R/master_script.R" file. 
 Wait. That's it.
 The results are stored in the sub-directory "figures".
@@ -66,14 +70,14 @@ The names of the scripts are quite indicative, and each script is reasonably com
  - [The initial version of the dataviz presented at Rostock Retreat Visualization in June 2017][retreat]
  - [Paper in _Health Affairs_ on homicides in Mexico][ha]
  - [Paper in _American Journal of Public Health_][ajph]
- - [Forthcoming paper in _The Lancet_ with an example of ternary colorcoding][lancet]
+ - [Paper in _The Lancet_ with an example of ternary colorcoding][lancet]
 
 
 [arch]: https://ikashnitsky.github.io/doc/misc/demres-2018-geofacet.zip
 [ha]: https://doi.org/10.1377/hlthaff.2015.0068
 [ajph]: https://doi.org/10.2105/AJPH.2018.304878
 [retreat]: https://github.com/ikashnitsky/geofaceted-premature-male-mortality-in-mexico
-[lancet]: https://osf.io/zac5x/
+[lancet]: https://doi.org/10.1016/S0140-6736(18)31194-2
 
 
 

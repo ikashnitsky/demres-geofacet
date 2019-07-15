@@ -1,0 +1,261 @@
+%%% Demographic Research Pandoc Style
+%%% Jonas Schöley
+%%% 2019-01-25
+%%% Depends on file "DemRes.bst" for custom bibliography styling.
+
+\documentclass[10pt, twoside, parskip=half]{article}
+\raggedbottom
+
+%%%% font/encoding %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc}          % .tex-file text encoding
+\usepackage[T1]{fontenc}             % vector fonts and special chars in output
+\usepackage{times}                   % Times Roman font family
+
+%%%% maths %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{mathrsfs} % maths script fonts
+\usepackage{amssymb}  % maths symbols
+\usepackage{amsmath}  % various maths features
+
+%%%% figures %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$if(graphics)$
+  \usepackage{graphicx} % include external images
+  % -- We will generate all images so they have a width \maxwidth. This means
+  % -- that they will get their normal width if they fit onto the page, but
+  % -- are scaled down if they would overflow the margins.
+  \makeatletter
+  \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+  \else\Gin@nat@width\fi}
+  \makeatother
+  \let\Oldincludegraphics\includegraphics
+  \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
+$endif$
+
+\usepackage{graphicx}
+
+%%%% captions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{float}      % captions above
+\usepackage[hang]{caption}
+\DeclareCaptionLabelSeparator{capsep}{:\hspace{1cm}}
+\captionsetup[figure]{
+            labelsep        = capsep,
+            name            = Figure,
+            font            = bf,
+            labelfont       = bf,
+            justification   = raggedright,
+            singlelinecheck = false
+}
+
+\captionsetup[table]{
+            labelsep        = capsep,
+            name            = Table,
+            font            = bf,
+            labelfont       = bf,
+            justification   = raggedright,
+            singlelinecheck = false
+}
+
+% captions above
+\floatstyle{plaintop}
+\restylefloat{table}
+\restylefloat{figure}
+
+%%%% localization %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% babel
+\usepackage[english]{babel}         % document language/localization
+\usepackage[htt]{hyphenat}          % hyphenation rules
+
+%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{natbib}
+\setcitestyle{aysep={}}
+\bibliographystyle{DemRes}
+\newcommand{\doi}[1]{\href{http://www.dx.doi.org/#1}{\textcolor{blue}{doi:#1}}}
+
+%%%% layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{geometry}
+\geometry{
+  paperheight = 22cm,
+  paperwidth  = 17cm,
+  top         = 2.54cm,
+  bottom      = 2.54cm,
+  inner       = 2cm,
+  outer       = 2.54cm,
+  footskip    = 11mm,
+  headheight  = 1cm,
+  headsep     = 0.75cm,
+  showframe   = false
+}
+
+% change spacing
+\setlength{\parskip}{0ex}
+\setlength{\parindent}{.7cm}
+\setlength{\bibsep}{.18cm}
+
+% no page numbers
+\pagenumbering{gobble}
+
+% avoid orphans and widows
+\widowpenalty = 10000
+\clubpenalty  = 10000
+
+% don't break footnotes
+\interfootnotelinepenalty = 10000
+
+% don't hyphenate across pages
+\brokenpenalty10000\relax
+
+% tight lists
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+%%%% sections %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% spacing
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-24pt}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-24pt}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\makeatother
+
+% style
+\usepackage{titlesec}
+\titleformat{\section}[hang]{\raggedright\normalfont\bfseries\large}{\arabic{section}.}{1ex}{}
+\titleformat{\subsection}[hang]{\raggedright\normalfont\bfseries}{\arabic{section}.\arabic{subsection}}{1ex}{}
+\titleformat{\subsubsection}[hang]{\raggedright\normalfont\bfseries}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}{1ex}{}
+
+%%%%% footnotes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Footnotes
+\usepackage[bottom]{footmisc}
+\setlength{\footnotemargin}{0.6em}
+
+% if you have code in your footnotes, the million macro march
+% kind of bumps into itself.
+% Pandoc, having just rendered your text into LaTeX,
+% knows whether the 'variable' `verbatim-in-note` is True, and
+% If it is, it asks for a  LaTeX package that solves the dilemma:
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+$endif$
+
+%%%% tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$if(tables)$
+  \usepackage{array,longtable,booktabs,multirow}
+  % -- This is needed because raggedright in table elements redefines \\:
+  \newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+  \let\PBS=\PreserveBackslash
+  \usepackage{etoolbox} % global table format
+  \AtBeginEnvironment{tabular}{\scriptsize\sffamily}
+$endif$
+
+%%%% subscripts %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$if(subscript)$
+  \newcommand{\textsubscr}[1]{\ensuremath{_{\scriptsize\textrm{#1}}}}
+$endif$
+
+%%%% links %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{hyperref}
+\hypersetup{
+  hidelinks,
+  breaklinks=true,
+  pdftitle={$title$}
+}
+
+%%%% misc %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% for colored links
+\usepackage{xcolor}
+
+% Footnotes:
+$if(verbatim-in-note)$
+  \VerbatimFootnotes % -- allows verbatim text in footnotes
+$endif$
+
+% For shaded code blocks
+$if(highlighting-macros)$
+  $highlighting-macros$
+$endif$
+
+%%%% includes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% header_includes
+$for(header-includes)$
+  $header-includes$
+$endfor$
+
+%%%% title, authors %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$if(title)$
+  \title{\large\textbf{$title$}\vskip 0em}
+$endif$
+$if(author)$
+  \author{$for(author)$\normalsize\textrm{\textbf{$author$}}$sep$\\$endfor$}
+$endif$
+\date{\vspace{-5ex}}
+
+%%%% document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+$if(title)$
+  \maketitle
+$endif$
+
+\vspace*{-24pt}
+\vspace*{5mm}
+\setlength{\parskip}{0.5em}
+\section*{Abstract}
+$if(background)$
+  \noindent\textbf{BACKGROUND}\\
+  $background$
+  \par
+$endif$
+$if(objective)$
+  \noindent\textbf{OBJECTIVE}\\
+  $objective$
+  \par
+$endif$
+$if(methods)$
+  \noindent\textbf{METHODS}\\
+  $methods$
+  \par
+$endif$
+$if(results)$
+  \noindent\textbf{RESULTS}\\
+  $results$
+  \par
+$endif$
+$if(conclusions)$
+  \noindent\textbf{CONCLUSIONS}\\
+  $conclusions$
+  \par
+$endif$
+$if(contribution)$
+  \noindent\textbf{CONTRIBUTION}\\
+  $contribution$
+$endif$
+\vspace*{12pt}
+
+\setlength{\parskip}{0ex}
+
+$body$
+
+\newpage
+
+\bibliography{$bibliography$}
+
+\end{document}

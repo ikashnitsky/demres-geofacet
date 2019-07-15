@@ -9,7 +9,7 @@
 #                                                  
 ################################################################################
 
-
+source("R/session-preparation.R")
 
 # text objects ------------------------------------------------------------
 
@@ -34,9 +34,10 @@ set <-  brewer.pal(9, "Set1")
 col9 <- c(set[7], bl[4], bl[3], bl[1], bl[2], set[9], set[6], set[5], "magenta")
 
 # create colors for gg-five
-col5 <- col9[c(5,7,6,3,1)]
-mixblue <- colorRampPalette(col9[c(8,9)])
-col5[3] <- mixblue(3)[2]
+col5 <- col9[c(9,6,1,1,1)]
+mix_orange <- colorRampPalette(col9[c(7,8)])
+col5[3] <- mix_orange(3)[2]
+col5[4] <- blues9[6]
 
 
 
@@ -73,7 +74,7 @@ df_five <-
                                     "Amenable to\nmedical service" = 
                                             "Amenable to medical service")
         ) %>%
-        group_by(code, year, age, cause_recode) %>%
+        group_by(code, year, cause_recode) %>%
         summarize(gap = gap %>% sum()) %>% 
         ungroup() %>% 
         group_by(cause_recode) %>%
@@ -99,10 +100,13 @@ df_nine <- df %>%
                 cause_name = cause_name %>% 
                         str_replace("Amenable to medical service", 
                                     "Amenable to\nmedical service") %>% 
+                        str_replace("IHD", "Ischaemic Heart\nDisease") %>% 
+                        str_replace("HIV", "Human\nImmunodeficiency\nVirus") %>% 
                         factor() %>% 
                         # move homicides to the end of factor
                         fct_relevel("Homicide", after = Inf)
-        ) 
+        ) %>% 
+        mutate(hex = cause_name %>% lvls_revalue(col9))
 
 
 
@@ -181,11 +185,6 @@ tern <- Tricolore(
         contrast = .5, lightness = 1, chroma = 1, hue = 10/12
 )
 
-# UPD 2018-08-20 Error message (left unsolved so far):
-# Error in (function (el, elname)  : 
-#                   "tern.panel.background" is not a valid theme element name.
-# 2019-02-09 -- fixed
-
 df_tern$color <- tern$rgb
 
 
@@ -199,21 +198,22 @@ tern_legend <- tern$key+
                    aes(hom, sui, z = oth), 
                    shape = 43, color = "white", size = 5)+
         scale_L_continuous("Homicide") +
-        scale_T_continuous("Road traffic\n and Suicide") +
+        scale_T_continuous("Road traffic and Suicide") +
         scale_R_continuous("Other") +
-        Larrowlab("% Homicide") +
-        Tarrowlab("% Road traffic and Suicide") +
-        Rarrowlab("% Other") +
         theme_classic() +
         theme(plot.background = element_rect(fill = NA, colour = NA),
-              tern.axis.arrow.show = TRUE, 
+              tern.axis.arrow.show = FALSE, 
               tern.axis.ticks.length.major = unit(12, "pt"),
               tern.axis.text = element_text(size = 12, colour = "grey20"),
-              tern.axis.title.T = element_text(),
-              tern.axis.title.L = element_text(hjust = 0.2, vjust = 0.7, angle = -60),
-              tern.axis.title.R = element_text(hjust = 0.8, vjust = 0.6, angle = 60),
-              text = element_text(family = font_rc, size = 14, color = "grey20"))+
+              tern.axis.title.T = element_text(hjust = -.1, vjust = -2, angle = -60),
+              tern.axis.title.L = element_text(hjust = -1, vjust = -2.5, angle = 60),
+              tern.axis.title.R = element_text(hjust = 1.5, vjust = 3),
+              text = element_text(family = font_rc, face = 2, size = 14, color = "grey20"))+
         labs(x = NULL, y = NULL)
+
+ggsave(plot = tern_legend, "figures/ink-fig-4/gg-tern-legend.pdf",  
+       width =  4.5, height = 3.8, device = cairo_pdf)
+
 
 
 # save evetyrhing for gg-three
