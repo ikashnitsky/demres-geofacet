@@ -1,6 +1,6 @@
 ################################################################################
 #                                                    
-# Demographic Research 2018-06-02
+# Demographic Research 2019-07-31
 # Geofacet example: Premature male mortality (15-49), Mexican states, 1990-2015
 # All data preparation
 #
@@ -9,7 +9,7 @@
 #                                                  
 ################################################################################
 
-source("R/session-preparation.R")
+# source("R/session-preparation.R")
 
 # text objects ------------------------------------------------------------
 
@@ -125,8 +125,7 @@ library(tidyverse)
 library(gridExtra)
 library(ggtern)
 library(tricolore)
-library(hrbrthemes)
-import_roboto_condensed()
+library(sysfonts)
 
 df_three <-
         df %>%

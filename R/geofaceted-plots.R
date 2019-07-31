@@ -1,6 +1,6 @@
 ################################################################################
 #                                                    
-# Demographic Research 2018-05-30
+# Demographic Research 2019-07-31
 # Geofacet example: Premature male mortality (15-49), Mexican states, 1990-2015
 # Produce the plots
 #
@@ -179,6 +179,7 @@ gg_tern <- df_tern %>%
 ggsave("figures/gg-tern.png", gg_tern, width = 16.5, height = 11.5)
 
 ggsave("figures/gg-tern-legend.png", tern_legend, width = 4.5, height = 3.8)
+
 
 
 # for fig 4 export 2 states

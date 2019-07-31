@@ -1,6 +1,6 @@
 ################################################################################
 #
-# Demographic Research 2018-06-03
+# Demographic Research 2019-07-31
 # Geofacet example: Premature male mortality (15-49), Mexican states, 1990-2015
 # MASTER SCRIPT
 #
@@ -17,9 +17,12 @@
 source("R/session-preparation.R")
 
 # Step 1. Data preparation
-source("R/data-preparation.R")
+# Feel free to explore "R/data-preparation.R"
+# Ready dataset are shipped in "data"
+# The reason for not replicating this step is buggy comminucation between
+# {geofacet} and {tricolore}, to be fixed
 
-# Step 3. Draw the figures
+# Step 2. Draw the figures
 source("R/geofaceted-plots.R")
 
 # Find the plots in "figures" sub-directory.

@@ -1,6 +1,6 @@
 ################################################################################
 #                                                    
-# Demographic Research 2018-06-03
+# Demographic Research 2019-07-31
 # Geofacet example: Premature male mortality (15-49), Mexican states, 1990-2015
 # R session preparation
 #
@@ -23,13 +23,14 @@ pkgs <- c(
         "tidyverse", 
         "janitor",
         "ggtern",
+        "gridExtra",
         "geofacet",
         "lubridate",
         "magrittr",
-        "extrafont",
-        "hrbrthemes",
-        "tricolore",
-        "RColorBrewer"
+        "sysfonts",
+        "remotes",
+        "RColorBrewer",
+        "tricolore"
 )
 
 
@@ -47,4 +48,8 @@ p_load(pkgs, character.only = TRUE)
 
 
 # get Roboto Consensed font -- called later as font_rc
-import_roboto_condensed()
+# NOTE! you might still need to istall the font manually on your OS
+sysfonts::font_add_google("Roboto Condensed"); font_rc <- "Roboto Condensed"
+
+# #tricolre -- error safe mode
+# remotes::install_github("jschoeley/tricolore")
