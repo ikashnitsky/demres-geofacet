@@ -1,7 +1,6 @@
 # Premature male mortality (15-49) in Mexican states, 1990-2015
 
-> Kashnitsky, I., & Aburto, J. M. (2019). Geofaceting: allign small-multiples for regions in a spatially meaningful way. Demographic Research. 
-
+> Kashnitsky, I., & Aburto, J. M. (2019). Geofaceting: Alligning small-multiples for regions in a spatially meaningful way. Demographic Research, 41(17), 477--490, https://doi.org/10.4054/DemRes.2019.41.17
 
 
 ## Full text of the paper draft is available [here][text].
@@ -28,7 +27,7 @@ To replicate the figures, follow the instructions in "R/master-script.R" and, of
 
 If you have questions regarding the dataviz, feel free to contact me: ilya.kashnitsky@gmail.com. For quiestions on the Mexican data, contact Jose Manuel: jmaburto@health.sdu.dk.
 
-Folow us on Twitter: [@ikahhnitsky][ik], [@jm_aburto][jma].
+Follow us on Twitter: [@ikashnitsky][ik], [@jm_aburto][jma].
 
 ***
 
